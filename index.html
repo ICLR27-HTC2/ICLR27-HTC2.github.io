@@ -1,0 +1,752 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noarchive">
+  <link rel="icon" href="data:,">
+  <title>HTC2 | Anonymous ICLR 2027 Submission</title>
+  <style>
+    :root {
+      --bg: #050709;
+      --panel: #10161a;
+      --panel-2: #14120d;
+      --ink: #f3f6f8;
+      --muted: #aab3bd;
+      --line: rgba(255, 255, 255, 0.12);
+      --cyan: #8defff;
+      --cyan-2: #1fb6d5;
+      --amber: #ffd166;
+      --rose: #ff8aa0;
+      --green: #8ce6a9;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.42);
+      color-scheme: dark;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(180deg, rgba(8, 14, 17, 0.92), rgba(5, 7, 9, 0.98) 26rem),
+        radial-gradient(circle at 18% 12%, rgba(31, 182, 213, 0.16), transparent 22rem),
+        radial-gradient(circle at 86% 16%, rgba(255, 209, 102, 0.12), transparent 20rem),
+        var(--bg);
+      color: var(--ink);
+      line-height: 1.55;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .page-shell {
+      min-height: 100vh;
+      position: relative;
+    }
+
+    .page-shell::before,
+    .page-shell::after {
+      content: "";
+      position: fixed;
+      left: -8vw;
+      right: -8vw;
+      height: 22rem;
+      border: 2px solid rgba(141, 239, 255, 0.12);
+      border-radius: 50%;
+      transform: rotate(-5deg);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .page-shell::before {
+      top: -11rem;
+    }
+
+    .page-shell::after {
+      bottom: -14rem;
+      border-color: rgba(255, 209, 102, 0.08);
+      transform: rotate(4deg);
+    }
+
+    .nav-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      padding: 1rem;
+      backdrop-filter: blur(16px);
+      background: linear-gradient(180deg, rgba(5, 7, 9, 0.92), rgba(5, 7, 9, 0.32));
+    }
+
+    nav {
+      max-width: 1180px;
+      margin: 0 auto;
+      min-height: 4.2rem;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(9, 12, 15, 0.82);
+      box-shadow: 0 14px 44px rgba(0, 0, 0, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-weight: 900;
+      letter-spacing: 0;
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      width: 2rem;
+      height: 2rem;
+      border: 1px solid rgba(141, 239, 255, 0.36);
+      border-radius: 50%;
+      background:
+        linear-gradient(135deg, rgba(141, 239, 255, 0.25), transparent 52%),
+        rgba(255, 255, 255, 0.05);
+      display: grid;
+      place-items: center;
+      color: var(--cyan);
+      font-size: 0.78rem;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 0.2rem;
+      color: var(--muted);
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .nav-links a {
+      padding: 0.5rem 0.72rem;
+      border-radius: 999px;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.08);
+      outline: none;
+    }
+
+    .hero {
+      min-height: calc(100vh - 6.2rem);
+      display: grid;
+      place-items: center;
+      padding: 6rem 1.25rem 5rem;
+      position: relative;
+    }
+
+    .hero-inner {
+      width: min(1120px, 100%);
+      text-align: center;
+    }
+
+    .tagline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      max-width: 100%;
+      padding: 0.45rem 0.9rem;
+      border: 1px solid rgba(141, 239, 255, 0.28);
+      border-radius: 999px;
+      background: rgba(31, 182, 213, 0.13);
+      color: #c6f8ff;
+      font-size: clamp(0.7rem, 2vw, 0.86rem);
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 1.55rem 0 0;
+      font-size: clamp(4.6rem, 14vw, 10.6rem);
+      line-height: 0.92;
+      letter-spacing: 0;
+      font-weight: 1000;
+      color: var(--ink);
+      text-shadow: 0 16px 70px rgba(141, 239, 255, 0.17);
+    }
+
+    h1 sup {
+      color: var(--cyan);
+      font-size: 0.45em;
+      vertical-align: super;
+    }
+
+    .subtitle {
+      margin: 1.2rem auto 0;
+      max-width: 980px;
+      color: #d5dce3;
+      font-size: clamp(1.18rem, 3vw, 2.05rem);
+      line-height: 1.25;
+      font-weight: 500;
+    }
+
+    .anonymous {
+      display: inline-block;
+      margin-top: 1.45rem;
+      padding: 0.18rem 0.55rem;
+      background: rgba(141, 239, 255, 0.25);
+      color: rgba(238, 249, 255, 0.84);
+      font-size: clamp(0.9rem, 2vw, 1.08rem);
+    }
+
+    .button-row {
+      margin-top: 2.15rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.9rem;
+    }
+
+    .pill-button {
+      position: relative;
+      min-width: 8.2rem;
+      padding: 0.84rem 1.15rem;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+      font-weight: 900;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.58rem;
+      color: #121619;
+    }
+
+    .pill-button.is-rose {
+      background: #ffd8df;
+      color: #8b2735;
+    }
+
+    .pill-button.is-blue {
+      background: #dbe8ff;
+      color: #2450b8;
+    }
+
+    .pill-button.is-dark {
+      background: #262626;
+      color: #f5f5f5;
+    }
+
+    .todo-badge {
+      position: absolute;
+      top: -0.55rem;
+      right: -0.18rem;
+      padding: 0.1rem 0.42rem;
+      border-radius: 999px;
+      background: rgba(20, 24, 30, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #bfc6ce;
+      font-size: 0.64rem;
+      line-height: 1.35;
+    }
+
+    .icon {
+      width: 1.25rem;
+      height: 1.25rem;
+      display: inline-grid;
+      place-items: center;
+      font-size: 0.9rem;
+      font-weight: 1000;
+    }
+
+    main {
+      padding-bottom: 4rem;
+    }
+
+    section {
+      scroll-margin-top: 6.5rem;
+      padding: 4.5rem 1.25rem;
+    }
+
+    .section-inner {
+      width: min(1160px, 100%);
+      margin: 0 auto;
+    }
+
+    .section-kicker {
+      color: var(--cyan);
+      font-size: 0.8rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 0.35rem 0 1rem;
+      font-size: clamp(2rem, 5vw, 3.65rem);
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 0;
+      font-size: 1.05rem;
+      line-height: 1.25;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .lede {
+      max-width: 980px;
+      color: #c6cfd8;
+      font-size: clamp(1rem, 2.2vw, 1.2rem);
+    }
+
+    .stats {
+      margin-top: 1.7rem;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.85rem;
+    }
+
+    .stat {
+      padding: 1.05rem;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.045);
+      border-radius: 8px;
+    }
+
+    .stat strong {
+      display: block;
+      color: var(--ink);
+      font-size: 1.1rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .feature-grid {
+      margin-top: 1.6rem;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .feature {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.045);
+      border-radius: 8px;
+      padding: 1.1rem;
+    }
+
+    .feature .num {
+      color: var(--amber);
+      font-weight: 1000;
+      font-size: 0.85rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .figure-panel {
+      margin-top: 1.6rem;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.055);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .figure-panel img {
+      background: #fff;
+    }
+
+    .figure-caption {
+      padding: 0.9rem 1rem;
+      border-top: 1px solid var(--line);
+      color: #bdc7d2;
+      font-size: 0.94rem;
+    }
+
+    .figure-grid {
+      margin-top: 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .figure-grid.is-compact {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .figure-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.048);
+      overflow: hidden;
+    }
+
+    .figure-card img {
+      background: #fff;
+      aspect-ratio: 16 / 8.3;
+      object-fit: contain;
+    }
+
+    .figure-card.tall img {
+      aspect-ratio: 16 / 10;
+    }
+
+    .figure-card.small img {
+      aspect-ratio: 16 / 7;
+    }
+
+    .card-body {
+      padding: 0.9rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .card-body p {
+      margin-top: 0.28rem;
+      font-size: 0.92rem;
+    }
+
+    .band {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.015));
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: 1.25rem;
+      align-items: start;
+    }
+
+    pre {
+      margin: 1.25rem 0 0;
+      padding: 1rem;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #0c0f12;
+      color: #e8edf2;
+      font-size: 0.92rem;
+    }
+
+    footer {
+      padding: 2rem 1.25rem 3rem;
+      color: #85909b;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 820px) {
+      .nav-wrap {
+        padding: 0.6rem;
+      }
+
+      nav {
+        border-radius: 18px;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav-links {
+        justify-content: flex-start;
+        font-size: 0.84rem;
+      }
+
+      .hero {
+        min-height: auto;
+        padding-top: 4.2rem;
+      }
+
+      .stats,
+      .feature-grid,
+      .figure-grid,
+      .figure-grid.is-compact,
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+
+      .pill-button {
+        min-width: min(10rem, 100%);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <div class="nav-wrap">
+      <nav aria-label="Primary navigation">
+        <a class="brand" href="#top" aria-label="HTC2 home">
+          <span class="brand-mark">H<sup>2</sup></span>
+          <span>HTC<sup>2</sup></span>
+        </a>
+        <div class="nav-links">
+          <a href="#overview">Overview</a>
+          <a href="#method">Method</a>
+          <a href="#results">Results</a>
+          <a href="#coverage">Coverage</a>
+          <a href="#ablation">Ablation</a>
+          <a href="#diagnostics">Diagnostics</a>
+          <a href="#citation">Citation</a>
+        </div>
+      </nav>
+    </div>
+
+    <header class="hero" id="top">
+      <div class="hero-inner">
+        <div class="tagline">Physics-structured exploration · Temporal contrast · Hamiltonian phase space</div>
+        <h1>HTC<sup>2</sup></h1>
+        <p class="subtitle">Hamiltonian Temporal Contrastive Curiosity for Reinforcement Learning Exploration</p>
+        <p class="anonymous">Anonymous authors · ICLR 2027 submission</p>
+        <div class="button-row" aria-label="Project links">
+          <span class="pill-button is-rose" role="link" aria-disabled="true">
+            <span class="todo-badge">TODO</span>
+            <span class="icon">χ</span>
+            <span>arXiv TODO</span>
+          </span>
+          <span class="pill-button is-blue" role="link" aria-disabled="true">
+            <span class="todo-badge">TODO</span>
+            <span class="icon">PDF</span>
+            <span>Paper TODO</span>
+          </span>
+          <span class="pill-button is-dark" role="link" aria-disabled="true">
+            <span class="todo-badge">TODO</span>
+            <span class="icon">&lt;/&gt;</span>
+            <span>Code TODO</span>
+          </span>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section id="overview">
+        <div class="section-inner">
+          <div class="section-kicker">Overview</div>
+          <h2>Exploration through temporally informative physical futures.</h2>
+          <p class="lede">
+            HTC<sup>2</sup> formulates intrinsic exploration as temporal future discovery in a learned Hamiltonian phase space.
+            It trains a horizon-conditioned contrastive critic on same-episode future pairs, then modulates the resulting
+            temporal curiosity signal with bounded multi-step Hamiltonian variation.
+          </p>
+          <div class="stats">
+            <div class="stat">
+              <strong>Multi-step novelty</strong>
+              <p>Rewards futures that remain poorly organized by the current temporal representation.</p>
+            </div>
+            <div class="stat">
+              <strong>Structured dynamics</strong>
+              <p>Uses Hamiltonian phase variables to encode physically meaningful changes over time.</p>
+            </div>
+            <div class="stat">
+              <strong>Control benchmarks</strong>
+              <p>Evaluated on DeepMind Control Suite tasks with SAC and PPO against common intrinsic rewards.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="band" id="method">
+        <div class="section-inner">
+          <div class="section-kicker">Method</div>
+          <h2>HTC<sup>2</sup> at a glance.</h2>
+          <p class="lede">
+            The method combines temporal contrastive learning, learned Hamiltonian phase-space structure, and a bounded
+            energy-variation modulation to guide policy exploration beyond local one-step novelty.
+          </p>
+          <div class="figure-panel">
+            <img src="assets/figures/HTC2_Overview.png" alt="Overview diagram of Hamiltonian Temporal Contrastive Curiosity">
+            <div class="figure-caption">Overview of the HTC<sup>2</sup> exploration objective and its phase-space curiosity signal.</div>
+          </div>
+          <div class="feature-grid">
+            <article class="feature">
+              <div class="num">01</div>
+              <h3>Horizon-conditioned critic</h3>
+              <p>Contrasts same-episode future pairs over multiple horizons to detect temporally informative outcomes.</p>
+            </article>
+            <article class="feature">
+              <div class="num">02</div>
+              <h3>Hamiltonian phase space</h3>
+              <p>Represents dynamics with phase variables so curiosity can respond to structured physical transitions.</p>
+            </article>
+            <article class="feature">
+              <div class="num">03</div>
+              <h3>Bounded modulation</h3>
+              <p>Uses multi-step Hamiltonian variation as structure-aware modulation rather than as a standalone objective.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="results">
+        <div class="section-inner">
+          <div class="section-kicker">Results</div>
+          <h2>Learning curves and rollout summaries.</h2>
+          <p class="lede">
+            HTC<sup>2</sup> is evaluated across physical-control tasks and compared with prediction-error, state-novelty,
+            representation-displacement, and uncertainty-driven exploration baselines.
+          </p>
+          <div class="figure-grid">
+            <article class="figure-card tall">
+              <img src="assets/figures/dmc_ppo_all.png" alt="PPO learning curves on DeepMind Control Suite tasks">
+              <div class="card-body">
+                <h3>PPO learning curves</h3>
+                <p>Task-level comparison under on-policy optimization.</p>
+              </div>
+            </article>
+            <article class="figure-card tall">
+              <img src="assets/figures/dmc_sac_all.png" alt="SAC learning curves on DeepMind Control Suite tasks">
+              <div class="card-body">
+                <h3>SAC learning curves</h3>
+                <p>Task-level comparison under off-policy optimization.</p>
+              </div>
+            </article>
+            <article class="figure-card tall">
+              <img src="assets/figures/htc2_rollout_summary_6tasks.png" alt="Rollout summary over six control tasks">
+              <div class="card-body">
+                <h3>Six-task rollout summary</h3>
+                <p>Aggregated rollout behavior across evaluated environments.</p>
+              </div>
+            </article>
+            <article class="figure-card tall">
+              <img src="assets/figures/dmc_violin_all.png" alt="Distributional return comparison across control tasks">
+              <div class="card-body">
+                <h3>Return distributions</h3>
+                <p>Distributional view of performance across methods and tasks.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="band" id="coverage">
+        <div class="section-inner">
+          <div class="section-kicker">Coverage</div>
+          <h2>State-space coverage diagnostics.</h2>
+          <p class="lede">
+            Coverage visualizations help characterize how the intrinsic signal changes exploration behavior beyond final return.
+          </p>
+          <div class="figure-grid">
+            <article class="figure-card tall">
+              <img src="assets/figures/dmc_state_coverage_3tasks_H.png" alt="Hamiltonian-aware state coverage on three tasks">
+              <div class="card-body">
+                <h3>Hamiltonian-aware coverage</h3>
+                <p>Coverage patterns under structured phase-space exploration.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="ablation">
+        <div class="section-inner">
+          <div class="section-kicker">Ablation and Robustness</div>
+          <h2>Components, dynamics shifts, and retention.</h2>
+          <p class="lede">
+            Ablation and out-of-distribution tests examine whether temporal contrast, physical consistency, energy modulation,
+            warm start, normalization, and dynamics-shift retention contribute to the exploration behavior.
+          </p>
+          <div class="figure-grid">
+            <article class="figure-card small">
+              <img src="assets/figures/htc2_ablation_curves.png" alt="HTC2 ablation learning curves">
+              <div class="card-body">
+                <h3>Ablation curves</h3>
+                <p>Component-level comparison of the HTC<sup>2</sup> objective.</p>
+              </div>
+            </article>
+            <article class="figure-card small">
+              <img src="assets/figures/ood_parametric_retention_all_baseline.png" alt="Parametric retention across all baselines">
+              <div class="card-body">
+                <h3>Baseline retention</h3>
+                <p>Robustness comparison against intrinsic-reward baselines.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="band" id="diagnostics">
+        <div class="section-inner">
+          <div class="section-kicker">Diagnostics</div>
+          <h2>Phase-space probes.</h2>
+          <p class="lede">
+            Diagnostic probes visualize how learned phase variables, Hamiltonian energy, and action-conditioned geometry organize
+            across tasks and control modes.
+          </p>
+          <div class="figure-grid is-compact">
+            <article class="figure-card">
+              <img src="assets/figures/action_conditioned_phase_geometry_v1.png" alt="Alternative action-conditioned phase geometry">
+              <div class="card-body">
+                <h3>Action-conditioned geometry</h3>
+                <p>Phase-space organization under action-conditioned transitions.</p>
+              </div>
+            </article>
+            <article class="figure-card">
+              <img src="assets/figures/hamiltonian_energy_phase_geometry.png" alt="Hamiltonian energy phase geometry">
+              <div class="card-body">
+                <h3>Energy geometry</h3>
+                <p>Energy-organized structure in learned phase latents.</p>
+              </div>
+            </article>
+            <article class="figure-card">
+              <img src="assets/figures/q_p_separate_pca_new.png" alt="Updated separate PCA visualizations for q and p">
+              <div class="card-body">
+                <h3>Separate q/p PCA</h3>
+                <p>Projection view for position-like and momentum-like phase variables.</p>
+              </div>
+            </article>
+            <article class="figure-card">
+              <img src="assets/figures/multi_task_qp_coupling.png" alt="Multi-task q-p coupling diagnostic">
+              <div class="card-body">
+                <h3>Multi-task q/p coupling</h3>
+                <p>Coupling pattern across multiple control tasks.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="citation">
+        <div class="section-inner two-col">
+          <div>
+            <div class="section-kicker">Citation</div>
+            <h2>Anonymous BibTeX placeholder.</h2>
+            <p class="lede">
+              The final citation will be updated after the paper link is ready. The placeholder preserves anonymous review.
+            </p>
+          </div>
+          <div>
+            <pre><code>@inproceedings{anonymous2027htc2,
+  title     = {Hamiltonian Temporal Contrastive Curiosity for Reinforcement Learning Exploration},
+  author    = {Anonymous Authors},
+  booktitle = {Anonymous ICLR 2027 Submission},
+  year      = {2027}
+}</code></pre>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      HTC<sup>2</sup> project page for anonymous review. Links and citation metadata are intentionally provisional.
+    </footer>
+  </div>
+</body>
+</html>
